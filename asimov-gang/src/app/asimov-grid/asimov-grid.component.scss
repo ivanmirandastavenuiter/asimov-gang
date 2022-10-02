@@ -1,0 +1,50 @@
+.dv-lvl-1.board-container {
+    margin: 50px 0;
+    padding-bottom: 50px;
+    width: 100%;
+    .dv-lvl-2.board {
+        margin: 0 auto;
+        width: 80%;
+        .dv-lvl-3.row-container {
+            width: max-content;
+            margin: 0 auto;
+            border: 1px solid rgb(156, 150, 150);
+            box-shadow: 9px 12px 44px -5px rgb(156, 150, 150);
+            border-collapse: collapse;
+            .dv-lvl-4.square-row {
+                margin: 0 auto;
+                display: flex;
+                width: max-content;
+                .dv-lvl-5.square-item {
+                    width: 100px;
+                    height: 100px;
+                    border: 0.5px solid rgb(156, 150, 150);
+                    box-shadow: rgba(96, 96, 96, 0.19) 0px 10px 20px, rgba(96, 96, 96, 0.19) 0px 6px 6px;
+                    border-collapse: collapse;
+                    background: rgb(247, 200, 247);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: relative;
+                    .dv-lvl-6.robot-item {
+                        width: 45px;
+                        height: 45px;
+                        border-radius: 50%;
+                        background: rgb(246, 141, 190);
+                    }
+                    .fas.fa-caret-up {
+                        color: rgb(246, 141, 190);
+                        font-size: 2em;
+                        position: absolute; 
+                    }
+                }
+            }
+        }
+        .dv-lvl-3.execution-info,
+        .dv-lvl-3.statistics-info {
+            width: 65%;
+            margin: 20px auto;
+            color: rgb(209, 209, 209);
+        }
+    }
+}

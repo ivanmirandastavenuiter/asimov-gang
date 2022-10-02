@@ -1,0 +1,112 @@
+<div class="dv-lvl-1 configuration-setup-container">
+    <h1 class="he-lvl-2 configuration-setup-title">Configuration setup</h1>
+    <p class="he-lvl-2 configuration-setup-message">How many robots do you want?</p>
+
+    <form [formGroup]="initForm" (ngSubmit)="onBootstrapFormSubmit($event)">
+
+            <label class="number-of-robots-label" for="numberOfRobots">Number of robots: </label>
+            <input id="numberOfRobots" type="text" formControlName="numberOfRobots">
+
+        <button class="generate-button" mat-raised-button color="primary" type="submit">Generate</button>
+        <button class="clean-button" mat-stroked-button color="primary" (click)="resetForm()" type="button">Clean</button>
+
+    </form>
+
+    <div class="dv-lvl-2 init-form-errors">
+        <div class="dv-lvl-3 show-init-form-error not-number" *ngIf="initFormErrors?.['pattern']">
+            Number of robots must be a number (max 10)
+        </div>
+        <div class="dv-lvl-3 show-init-form-error max-length" *ngIf="initFormErrors?.['max']">
+            Number of robots must not exceed 10
+        </div>
+        <div class="dv-lvl-3 show-init-form-error empty" *ngIf="initFormErrors?.['required']">
+            Number of robots required
+        </div>
+    </div>
+
+    <div class="dv-lvl-2 config-form-container" *ngIf="isFormStarted">
+
+        <h2 class="he-lvl-3 configuration-board-subtitle">Board</h2>
+
+        <form [formGroup]="formWrapper" (ngSubmit)="onConfigFormSubmit($event)">
+
+            <form formGroupName="gridSetupForm">
+    
+                <label for="gridSetupXAxis">X axis for grid: </label>
+                <input id="gridSetupXAxis" type="text" formControlName="gridSetupXAxis">
+    
+                <label for="gridSetupYAxis">Y axis for grid: </label>
+                <input id="gridSetupYAxis" type="text" formControlName="gridSetupYAxis">
+    
+            </form>
+
+            <div class="dv-lvl-3 grid-setup-errors" *ngFor="let gridSetupFormErrors of gridSetupErrors">
+                <p class="par-lvl-4 error-axis">Error for {{ gridSetupFormErrors.key }} axis:&nbsp;</p>
+                <div class="dv-lvl-4 gridsetup-form-error not-number" 
+                *ngIf="gridSetupFormErrors.errors && gridSetupFormErrors.errors['pattern']">
+                    Axis must be a number
+                </div>
+                <div class="dv-lvl-4 gridsetup-init-form-error max-length" 
+                *ngIf="gridSetupFormErrors.errors && gridSetupFormErrors.errors['max']">
+                    &nbsp;&#x2022;&nbsp;Axis should not exceed 10
+                </div>
+                <div class="dv-lvl-4 gridsetup-init-form-error empty" 
+                *ngIf="gridSetupFormErrors.errors && gridSetupFormErrors.errors['required']">
+                    &nbsp;&#x2022;&nbsp;Axis required 
+                </div>
+            </div>
+            
+            <h2 class="he-lvl-3 configuration-robots-subtitle">Robots</h2>
+
+            <div class="robot-form-items" *ngFor="let robotControlKey of robotControlKeys">
+
+                <form [formGroupName]="robotControlKey">
+    
+                    <label for="xAxis">X axis: </label>
+                    <input id="xAxis" type="text" formControlName="xAxis">
+        
+                    <label for="yAxis">Y axis: </label>
+                    <input id="yAxis" type="text" formControlName="yAxis">
+
+                    <label for="orientation">Orientation: </label>
+                    <input id="orientation" type="text" formControlName="orientation">
+
+                    <label for="instructions">Instructions: </label>
+                    <input id="instructions" type="text" formControlName="instructions">
+
+                    <div class="dv-lvl-4 robot-error-messages-container">
+                        <ng-container *ngIf="hasRobotFormAnyError">
+                            <p class="par-lvl-5 x-axis-robot-item-errors">{{ checkErrors(robotControlKey, 'xAxis') }}</p>
+                        </ng-container>
+                        <ng-container *ngIf="hasRobotFormAnyError">
+                            <p class="par-lvl-5 x-axis-robot-item-errors">
+                                &nbsp;&#x2022;&nbsp;
+                                {{ checkErrors(robotControlKey, 'yAxis') }}
+                            </p>
+                        </ng-container>
+                        <ng-container *ngIf="hasRobotFormAnyError">
+                            <p class="par-lvl-5 x-axis-robot-item-errors">
+                                &nbsp;&#x2022;&nbsp;
+                                {{ checkErrors(robotControlKey, 'orientation') }}
+                            </p>
+                        </ng-container>
+                        <ng-container *ngIf="hasRobotFormAnyError">
+                            <p class="par-lvl-5 x-axis-robot-item-errors">
+                                &nbsp;&#x2022;&nbsp;
+                                {{ checkErrors(robotControlKey, 'instructions') }}
+                            </p>
+                        </ng-container>
+                    </div>
+        
+                </form>
+
+            </div>
+
+            <button class="go-button" mat-raised-button color="primary">Go</button>
+        
+        </form>
+
+    </div>
+
+</div>
+

@@ -1,0 +1,62 @@
+.dv-lvl-1.configuration-setup-container {
+    width: 80%;
+    margin: 50px auto 0 auto;
+    .he-lvl-2.configuration-setup-title {
+        color: rgb(209, 209, 209);
+    }
+    .he-lvl-2.configuration-setup-message {
+        color: rgb(209, 209, 209);
+    }
+    label {
+        color: rgb(209, 209, 209);
+    }
+    input {
+        margin: 0 20px;
+    }
+    .generate-button {
+        background: rgb(246, 141, 190);
+        color: rgb(68, 68, 68);
+    }
+    .clean-button {
+        margin: 0 20px;
+        background: rgb(209, 209, 209);
+        color: rgb(68, 68, 68);
+
+    }
+    .dv-lvl-2.config-form-container {
+        margin-top: 20px;
+        .he-lvl-3.configuration-board-subtitle {
+            color: rgb(209, 209, 209);
+        }
+        .he-lvl-3.configuration-robots-subtitle {
+            margin-top: 20px;
+            color: rgb(209, 209, 209);
+        }
+        .robot-form-items {
+            margin: 10px auto;
+            .dv-lvl-4.robot-error-messages-container {
+                display: flex;
+                .par-lvl-5.x-axis-robot-item-errors {
+                    margin-top: 20px;
+                    color: rgb(209, 209, 209);
+                }
+            }
+        }
+        .go-button {
+            margin-top: 10px;
+            background: rgb(246, 141, 190);
+            color: rgb(68, 68, 68);
+        }
+        form {
+            margin-bottom: 10px;
+        }
+    }
+    .dv-lvl-2.init-form-errors {
+        margin-top: 20px;
+        color: rgb(209, 209, 209);
+    }
+    .dv-lvl-3.grid-setup-errors {
+        color: rgb(209, 209, 209);
+        display: flex;
+    }
+}

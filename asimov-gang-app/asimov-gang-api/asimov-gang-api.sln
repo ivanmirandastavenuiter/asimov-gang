@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32002.185
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "asimov-gang-api", "asimov-gang-api.csproj", "{49BF1E76-6725-4859-BE7E-07144A0F224B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "asimov-gang-unit-tests", "..\asimov-gang-unit-tests\asimov-gang-unit-tests.csproj", "{D44B73AA-F8C6-462A-9CDF-A35CB6A0FB2E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CC60EBDE-40DC-4E39-ADB7-22E1ACDD33B7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{49BF1E76-6725-4859-BE7E-07144A0F224B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49BF1E76-6725-4859-BE7E-07144A0F224B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49BF1E76-6725-4859-BE7E-07144A0F224B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49BF1E76-6725-4859-BE7E-07144A0F224B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D44B73AA-F8C6-462A-9CDF-A35CB6A0FB2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D44B73AA-F8C6-462A-9CDF-A35CB6A0FB2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D44B73AA-F8C6-462A-9CDF-A35CB6A0FB2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D44B73AA-F8C6-462A-9CDF-A35CB6A0FB2E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2118B2D0-7713-4FF0-8293-1E5892FC4B15}
+	EndGlobalSection
+EndGlobal

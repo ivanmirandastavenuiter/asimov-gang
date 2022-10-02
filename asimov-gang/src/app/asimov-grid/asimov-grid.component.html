@@ -1,0 +1,34 @@
+<div class="dv-lvl-1 board-container">
+    <div class="dv-lvl-2 board" *ngIf="isDataLoaded">
+        <div class="dv-lvl-3 row-container">
+            <ng-container *ngFor="let yIndex of yAxis">
+                <div class="dv-lvl-4 square-row y-cell-axis-{{ yIndex }}">
+                    <ng-container *ngFor="let xIndex of xAxis">
+                        <div class="dv-lvl-5 square-item x-cell-axis-{{ xIndex }}"></div>
+                    </ng-container>
+                </div>
+            </ng-container>
+        </div>
+        <div class="dv-lvl-3 execution-info">
+            <p *ngIf="!currentExecutionDone; else elseBlock">Execution in progress for robot with identifier {{ this.robotTrackData?.robotIdentifier }}...</p>
+            <ng-template #elseBlock>Execution done</ng-template>
+            <div class="dv-lvl-4 progression-info-panel">
+                <div class="dv-lvl-5 progression-info-item" *ngFor="let progressionInfo of progressionRecords">
+                    <span class="sp-lvl-6 item-data">{{ progressionInfo.xAxis }} </span>
+                    <span class="sp-lvl-6 item-data">{{ progressionInfo.yAxis }} </span>
+                    <span class="sp-lvl-6 item-data">{{ progressionInfo.orientation }} </span>
+                    <span class="sp-lvl-6 item-data" *ngIf="progressionInfo.isOff">LOST</span>
+                </div>
+            </div>
+        </div>
+        <div class="dv-lvl-3 statistics-info" *ngIf="statistics.length > 0">
+            <div class="dv-lvl-4 statistics-info-panel">
+                <p class="par-lvl-5 final-statistics-title">Statistics summary:</p>
+                <div class="dv-lvl-5 statistics-info-item" *ngFor="let statisticItem of statistics">
+                    <span class="sp-lvl-6 item-data">Id: {{ statisticItem.identifier }}&nbsp;&#x2022;&nbsp;</span>
+                    <span class="sp-lvl-6 item-data">Path: {{ statisticItem.executionData }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

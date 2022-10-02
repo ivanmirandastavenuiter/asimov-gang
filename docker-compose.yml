@@ -1,0 +1,26 @@
+name: 'asimov_gang'
+version: '1.0'
+services:
+
+ asimov_gang_front:
+  build: 
+    context: ./asimov-gang
+    dockerfile: Dockerfile
+  container_name: asimov_gang_front
+  image: asimov-gang-front
+  ports:
+   - "4200:4200"
+ 
+ asimov_gang_api:
+  build: 
+    context: ./asimov-gang-app
+    dockerfile: Dockerfile
+  container_name: asimov_gang_api
+  ports:
+   - "45000:45000"
+
+# networks:
+#  app-net:
+ 
+# volumes:
+#  v:
