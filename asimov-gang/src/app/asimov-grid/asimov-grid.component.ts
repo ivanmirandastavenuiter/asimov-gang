@@ -33,17 +33,27 @@ export class AsimovGridComponent implements OnInit {
 
   constructor(private elRef: ElementRef, private renderer: Renderer2, private asimovHttpService: AsimovHttpService) { }
 
+  /**
+   * On changes hook
+   * 
+   * @param changes 
+   */
   ngOnChanges(changes: SimpleChanges) {
     this.sharedFormData = changes['sharedFormData'].currentValue as SharedFormData;
     this.setCoordinatesForCells();
     this.setInitialRobotPosition();
   } 
 
+  /**
+   * On init hook
+   */
   ngOnInit(): void {
   }
 
+  /**
+   * Set initial coordinates for cells
+   */
   setCoordinatesForCells() {
-    // Initiate grid first and set cell references
     let yAxisCoordinates = this.sharedFormData?.gridSetupForm.value.gridSetupYAxis;
     let xAxisCoordinates = this.sharedFormData?.gridSetupForm.value.gridSetupXAxis;
 
@@ -55,8 +65,16 @@ export class AsimovGridComponent implements OnInit {
     }
   }
   
+  /**
+   * Set robots at initial position
+   * 
+   * Core method for bootstrapping each robot at the correct time
+   * 
+   * Timeouts are calculated from the beginning, as iteration comes all at once
+   * 
+   * 2.5 seconds are provided as extended margin to give a friendly pause after each execution
+   */
   setInitialRobotPosition() {
-
     setTimeout(() => {
       let executions = this.sharedFormData?.robotsFormGroups;
 
@@ -65,7 +83,6 @@ export class AsimovGridComponent implements OnInit {
       let index = 1;
       
       if (executions != undefined) {
-        executions.forEach(x => console.log(x.value));
         for (let execution of executions) {
           let instructions = execution.value.instructions;
 
@@ -94,17 +111,18 @@ export class AsimovGridComponent implements OnInit {
               this.getStatistics();
             }, initialTimeout);
           }
-
-
           index++;
         }
       }
-
     }, .1);
   }
 
+  /**
+   * Triggers the moves for each robot
+   * 
+   * @param instructions 
+   */
   triggerRobotActions(instructions: string) {
-    // With the usage of intervals, we show progression of robot path from beginning to end
     let instructionsParsed = instructions.split('');
     let interval = 1000;
     let index = 0;
@@ -121,6 +139,12 @@ export class AsimovGridComponent implements OnInit {
     }, interval);
   }
 
+  /**
+   * Set proper styles for each orientation
+   * 
+   * @param arrowElement 
+   * @param orientation 
+   */
   setOrientationStyles(arrowElement: Element, orientation: string) {
     switch (orientation) {
       case 'N':
@@ -141,6 +165,12 @@ export class AsimovGridComponent implements OnInit {
     }
   }
 
+  /**
+   * Decides the next action for the robot
+   * 
+   * @param nextInstruction 
+   * @param isLastMove 
+   */
   executeNextMove(nextInstruction: string, isLastMove: boolean) {
     switch (nextInstruction) {
       case 'F':
@@ -155,8 +185,12 @@ export class AsimovGridComponent implements OnInit {
     }
   }
 
+  /**
+   * Move forward action
+   * 
+   * @param isLastMove 
+   */
   moveForward(isLastMove: boolean) {
-    // Clean previous cell
     this.robotTrackData.currentCellElement.innerHTML = '';
 
     this.asimovHttpService.moveForward(this.robotTrackData.currentOrientation).subscribe((data: MoveForwardResponse) => {
@@ -206,6 +240,11 @@ export class AsimovGridComponent implements OnInit {
 
   }
 
+  /**
+   * Move right action
+   * 
+   * @param isLastMove 
+   */
   moveRight(isLastMove: boolean) {
     this.asimovHttpService.moveToSide(this.robotTrackData.currentOrientation, "R").subscribe((data: MoveToSideResponse) => {
       let newOrientation = data.newOrientation;
@@ -229,6 +268,11 @@ export class AsimovGridComponent implements OnInit {
 
   }
 
+  /**
+   * Move left action
+   * 
+   * @param isLastMove 
+   */
   moveLeft(isLastMove: boolean) {
     this.asimovHttpService.moveToSide(this.robotTrackData.currentOrientation, "L").subscribe((data: MoveToSideResponse) => {
       let newOrientation = data.newOrientation;
@@ -252,6 +296,13 @@ export class AsimovGridComponent implements OnInit {
 
   }
 
+  /**
+   * Set current tracking data for the robot
+   * 
+   * @param xPos 
+   * @param yPos 
+   * @param orientation 
+   */
   setRobotTrackData(xPos: number, yPos: number, orientation: string) {
     if (!this.hasExecutionBeenInterrupted) {
       const row = this.elRef.nativeElement.querySelector(`.y-cell-axis-${yPos}`);
@@ -274,6 +325,12 @@ export class AsimovGridComponent implements OnInit {
     }
   }
 
+  /**
+   * Checks robot boundaries inside grid
+   * 
+   * @param pos 
+   * @param axis 
+   */
   checkBoundaries(pos: number, axis: string) {
     if (axis === 'Y') {
       if (pos < 0 || pos > this.yAxis[0]) {
@@ -286,6 +343,9 @@ export class AsimovGridComponent implements OnInit {
     }
   }
 
+  /**
+   * Execute needed actions in case of lost robot
+   */
   interruptExecution() {
     clearInterval(this.executionInterval);
     this.hasExecutionBeenInterrupted = true;
@@ -293,6 +353,9 @@ export class AsimovGridComponent implements OnInit {
     this.setRobotOffCellIndicator();
   }
 
+  /**
+   * Sets robot lost indicator
+   */
   setRobotOffCellIndicator() {
     let cell = this.robotTrackData.currentCellElement;
     this.renderer.setStyle(cell, 'background', 'red');
@@ -309,6 +372,9 @@ export class AsimovGridComponent implements OnInit {
     }, 1000);
   }
 
+  /**
+   * Saves execution data when robot finishes the path
+   */
   saveRobotOutput() {
     const executionSteps = `${this.robotTrackData.currentXAxis} ` +
                            `${this.robotTrackData.currentYAxis} ` +
@@ -318,10 +384,12 @@ export class AsimovGridComponent implements OnInit {
     this.asimovHttpService.saveRobotOutput(this.robotTrackData.robotIdentifier, executionSteps).subscribe();
   }
 
+  /**
+   * Gets final statistics when all executions are done
+   */
   getStatistics() {
     this.asimovHttpService.getStatistics().subscribe((data: SaveRobotStatisticsResponse[]) => {
       this.statistics = data;
-      console.log(this.statistics)
     });
   }
 }

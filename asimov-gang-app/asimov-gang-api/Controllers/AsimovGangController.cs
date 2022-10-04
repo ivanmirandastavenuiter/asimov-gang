@@ -14,13 +14,6 @@ public class AsimovGangController : ControllerBase
 {
     private readonly ILogger<AsimovGangController> _logger;
     private readonly IAsimovGangService _asimovGangService;
-    //private readonly IAsimovGangRepository _asimovGangRepository;
-
-    //private readonly IValidator<MoveForwardRequest> _moveForwardRequestValidator;
-    //private readonly IValidator<MoveToSideRequest> _moveToSideValidator;
-    //private readonly IValidator<SaveRobotOutputRequest> _saveRobotOutputValidator;
-
-    //private static readonly List<string> _orientationReferences = new List<string> { "N", "E", "S", "W" };
 
     public AsimovGangController(
         ILogger<AsimovGangController> logger, 
@@ -30,12 +23,8 @@ public class AsimovGangController : ControllerBase
         IValidator<MoveToSideRequest> moveToSideValidator,
         IValidator<SaveRobotOutputRequest> saveRobotOutputValidator)
     {
-        //_asimovGangRepository = asimovGangRepository;
         _logger = logger;
         _asimovGangService = asimovGangService;
-        //_moveForwardRequestValidator = moveForwardRequestValidator;
-        //_moveToSideValidator = moveToSideValidator;
-        //_saveRobotOutputValidator = saveRobotOutputValidator;
     }
 
     [HttpPost("moveForward")]

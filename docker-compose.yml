@@ -18,9 +18,3 @@ services:
   container_name: asimov_gang_api
   ports:
    - "45000:45000"
-
-# networks:
-#  app-net:
- 
-# volumes:
-#  v:

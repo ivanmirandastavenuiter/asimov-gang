@@ -26,10 +26,16 @@ export class AsimovInputComponent implements OnInit {
 
   constructor(public parentForm: FormGroupDirective) { }
 
+  /**
+   * On init hook
+   */
   ngOnInit(): void {
     this.setInitialForms();
   }
 
+  /**
+   * Sets initial forms
+   */
   setInitialForms() {
     this.initForm = new FormGroup({
       numberOfRobots: new FormControl('', 
@@ -55,9 +61,14 @@ export class AsimovInputComponent implements OnInit {
         ])
       })
     });
-
   }
 
+  /**
+   * This is the form submit that contains all relevant data (second)
+   * If everything is ok, then move forward. Otherwise, show errors
+   * 
+   * @param event 
+   */
   onConfigFormSubmit(event: Event) {
     event.preventDefault();
 
@@ -82,9 +93,7 @@ export class AsimovInputComponent implements OnInit {
           gridSetupForm = this.formWrapper.controls[formControlKey] as FormGroup;
         } else {
           let currentControl = this.formWrapper.controls[formControlKey] as FormGroup;
-
           this.hasRobotFormAnyError = this.checkCurrentRobotFormGroupErrors(currentControl);
-          console.log(this.hasRobotFormAnyError);
           currentControl.addControl('identifier', new FormControl(Guid.create().toString()));
           currentRobotFormGroups.push(currentControl);
         }
@@ -99,16 +108,19 @@ export class AsimovInputComponent implements OnInit {
     
         this.emitSharedFormData(sharedFormData);
       }
-
     }
-
   }
 
+  /**
+   * Init form. Checks number of robots and displays next forms
+   * If everything ok, move forward. Otherwise show errors.
+   * 
+   * @param event 
+   */
   onBootstrapFormSubmit(event: Event) {
     event.preventDefault();
     
     this.initFormErrors = (this.initForm.get('numberOfRobots') as FormGroup).errors as ValidationErrors;
-    console.log(this.initFormErrors);
 
     if (!this.initFormErrors) {
       this.isFormStarted = true;
@@ -144,13 +156,24 @@ export class AsimovInputComponent implements OnInit {
         this.robotControlKeys.push(`currentRobotFormGroup${i}`);
       }
     }
-
   }
 
+  /**
+   * Emits the data for the other component to have it
+   * 
+   * @param sharedFormData 
+   */
   emitSharedFormData(sharedFormData: SharedFormData){
     this.sharedFormData.emit(sharedFormData);
   }
 
+  /**
+   * Method used to control errors at robot controls
+   * 
+   * @param robotControlKey 
+   * @param control 
+   * @returns 
+   */
   checkErrors(robotControlKey: string, control: string) {
     let errorMessage = '';
     const currentControlGroup = this.formWrapper.get(robotControlKey);
@@ -181,6 +204,12 @@ export class AsimovInputComponent implements OnInit {
     return errorMessage;
   }
 
+  /**
+   * Flag for controlling existence of errors in robot forms
+   * 
+   * @param robotFormGroup 
+   * @returns 
+   */
   checkCurrentRobotFormGroupErrors(robotFormGroup: FormGroup): boolean {
     return robotFormGroup.get('xAxis')?.errors != null ||
            robotFormGroup.get('yAxis')?.errors != null || 
@@ -188,8 +217,10 @@ export class AsimovInputComponent implements OnInit {
            robotFormGroup.get('instructions')?.errors != null;
   }
 
+  /**
+   * Reset operations
+   */
   resetForm() {
-    console.log('hey')
     this.initForm.reset();
     this.initFormErrors = {} as ValidationErrors;
     this.gridSetupErrors = [];
